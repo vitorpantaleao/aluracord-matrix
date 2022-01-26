@@ -21,7 +21,7 @@ function Titulo(props) {
 }
 
 export default function PaginaInicial() {
-  // const username = 'vitorpantaleao';
+  const numUsername = 2;
   const [username, setUsername] = React.useState('')
   const roteamento = useRouter()
 
@@ -55,7 +55,7 @@ export default function PaginaInicial() {
             as="form"
             onSubmit={function (infosDoEvento) {
               infosDoEvento.preventDefault()
-              console.log('submitou')
+              // console.log('submitou')
               roteamento.push('/chat')
             }}
             styleSheet={{
@@ -68,19 +68,9 @@ export default function PaginaInicial() {
               {appConfig.name}
             </Text>
 
-            {/* <input type="text" 
-            value={username} 
-            onChange={function (event) {
-              console.log('usuario digitou', event.target.value)
-              // Onde está o valor?
-              const valor = event.target.value
-              // Troca o valor da variavel
-              setUsername(valor)
-            }} /> */}
             <TextField
               value={username}
               onChange={function (event) {
-                // console.log('usuario digitou', event.target.value)
                 // Onde está o valor?
                 const valor = event.target.value
                 // Troca o valor da variavel
@@ -127,13 +117,15 @@ export default function PaginaInicial() {
               minHeight: '240px',
             }}
           >
-            <Image
-              styleSheet={{
-                borderRadius: '50%',
-                marginBottom: '16px',
-              }}
-              src={`https://github.com/${username}.png`}
-            />
+            {username.length >= numUsername &&
+              <Image
+                styleSheet={{
+                  borderRadius: '50%',
+                  marginBottom: '16px',
+                }}
+                src={`https://github.com/${username}.png`}
+              />
+            }
             <Text
               variant="body4"
               styleSheet={{
