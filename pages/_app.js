@@ -22,13 +22,22 @@ function GlobalStyle() {
         #__next > * {
           flex: 1;
         }
+
+        ul::-webkit-scrollbar {
+          width: 12px;
+        }
+        
+        ul::-webkit-scrollbar-thumb {
+          background-color: #212931;
+          border-radius: 20px;
+        }
         /* ./App fit Height */  
       `}</style>
     );
   }
 
 export default function MyApp({ Component, pageProps }) {
-    console.log('Todas as páginas')
+    // console.log('Todas as páginas')
     return (
         <>
             <GlobalStyle />
