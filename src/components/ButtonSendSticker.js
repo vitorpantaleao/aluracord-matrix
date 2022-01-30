@@ -76,7 +76,6 @@ export function ButtonSendSticker(props) {
                             <Text
                                 tag="li" key={sticker}
                                 onClick={() => {
-                                    // console.log('[Dentro do componente] - clicou no sticker', sticker)
                                     if(Boolean(props.onStickerClick)) {
                                         props.onStickerClick(sticker)
                                     }

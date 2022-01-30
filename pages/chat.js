@@ -13,17 +13,14 @@ function escutaMensagensEmTempoReal(adicionaMensagem) {
     return supabaseClient
         .from('mensagens')
         .on('INSERT', (respostaLive) => {
-            // console.log('houve nova mensagem', oQueVeio)
             adicionaMensagem(respostaLive.new)
         })
         .subscribe()
 }
 
 export default function ChatPage() {
-    // Sua lógica vai aqui
     const roteamento = useRouter()
     const usuarioLogado = roteamento.query.username
-    console.log(usuarioLogado)
     const [mensagem, setMensagem] = React.useState('');
     const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
 
@@ -33,13 +30,10 @@ export default function ChatPage() {
             .select('*')
             .order('id', { ascending: false })
             .then(({ data }) => {
-                // console.log('Dados da consulta:', data)
                 setListaDeMensagens(data);
             });
 
         escutaMensagensEmTempoReal((novaMensagem) => {
-            // handleNovaMensagem(novaMensagem)
-            console.log(novaMensagem)
             setListaDeMensagens((valorAtualDaLista) => {
                 return [
                     novaMensagem,
@@ -51,7 +45,6 @@ export default function ChatPage() {
 
     function handleNovaMensagem(novaMensagem) {
         const mensagem = {
-            // id: listaDeMensagens.length + 1,
             de: usuarioLogado,
             texto: novaMensagem,
         };
@@ -63,7 +56,6 @@ export default function ChatPage() {
             ])
             .then(({ data }) => {
                 console.log('Criando nova mensagem: ', data)
-                
             });
 
         setMensagem('');
@@ -141,7 +133,6 @@ export default function ChatPage() {
                         />
                         <ButtonSendSticker 
                             onStickerClick={(sticker) => {
-                                // console.log('[ Usando o componente] salva esse sticker no banco', sticker)
                                 handleNovaMensagem(':sticker: ' + sticker)
                             }}
                         />
@@ -152,10 +143,42 @@ export default function ChatPage() {
     )
 }
 
-function Header() {
+function Header(mensagem) {
+    const roteamento = useRouter()
+    const usuarioLogado = roteamento.query.username
     return (
         <>
             <Box styleSheet={{ width: '100%', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} >
+                <Box
+                    styleSheet={{
+                        marginBottom: '8px',
+                        display: 'flex', 
+                        alignItems: 'center',
+                    }}
+                >
+                    <Image
+                        styleSheet={{
+                            width: '20px',
+                            height: '20px',
+                            borderRadius: '50%',
+                            display: 'inline-block',
+                            marginRight: '8px',
+                        }}
+                        src={`https://github.com/${usuarioLogado}.png`}
+                    />
+                    <Text tag="strong">
+                        {usuarioLogado}
+                    </Text>
+                    <Text
+                        styleSheet={{
+                            fontSize: '10px',
+                            marginLeft: '8px',
+                            color: appConfig.theme.colors.neutrals[300],
+                        }}
+                        tag="span"
+                    >
+                    </Text>
+                </Box>
                 <Text variant='heading5'>
                     Chat
                 </Text>
