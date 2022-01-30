@@ -2,6 +2,7 @@ import { Box, Button, Text, TextField, Image } from '@skynexui/components'
 import React from 'react';
 import { useRouter } from 'next/router'
 import appConfig from '../config.json'
+import Head from 'next/head'
 
 function Titulo(props) {
   const Tag = props.tag || 'h1'
@@ -26,7 +27,11 @@ export default function PaginaInicial() {
   const roteamento = useRouter()
 
   return (
-    <>      
+    <>
+      <Head>
+        <title>DevCord | Chat para Devs</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head> 
       <Box
         styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -55,7 +60,6 @@ export default function PaginaInicial() {
             as="form"
             onSubmit={function (infosDoEvento) {
               infosDoEvento.preventDefault()
-              // console.log('submitou')
               roteamento.push(`/chat?username=${username}`)
             }}
             styleSheet={{
@@ -63,9 +67,9 @@ export default function PaginaInicial() {
               width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
             }}
           >
-            <Titulo tag="h2">Boas vindas de volta!</Titulo>
-            <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
-              {appConfig.name}
+            <Titulo tag="h2">Seja Bem Vindo! </Titulo>
+            <Text variant="body3" styleSheet={{ marginBottom: '32px',fontSize:'20px', color: appConfig.theme.colors.neutrals[300] }}>
+            {appConfig.name}
             </Text>
 
             <TextField
@@ -85,6 +89,7 @@ export default function PaginaInicial() {
                   backgroundColor: appConfig.theme.colors.neutrals[800],
                 },
               }}
+              required
             />
             <Button
               type='submit'
@@ -99,7 +104,6 @@ export default function PaginaInicial() {
             />
           </Box>
           {/* Formulário */}
-
 
           {/* Photo Area */}
           <Box

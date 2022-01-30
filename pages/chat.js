@@ -4,6 +4,7 @@ import appConfig from '../config.json';
 import { useRouter } from 'next/router'
 import { createClient } from '@supabase/supabase-js'
 import { ButtonSendSticker } from '../src/components/ButtonSendSticker'
+import Head from 'next/head';
 
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMzMTUyMiwiZXhwIjoxOTU4OTA3NTIyfQ.0f3-ttAjOd5jniyWbzpOzma3-KV3kVKvIFfArVU_XMA'
 const SUPABASE_URL = 'https://jqzobwcxlvtyxnakdddw.supabase.co'
@@ -62,84 +63,94 @@ export default function ChatPage() {
     }
 
     return (
-        <Box
-            styleSheet={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                backgroundColor: appConfig.theme.colors.primary[500],
-                backgroundImage: `url(https://virtualbackgrounds.site/wp-content/uploads/2020/12/bright-gaming-room-setup-1536x864.jpg)`,
-                backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
-                color: appConfig.theme.colors.neutrals['000']
-            }}
-        >
+        <>
+            <Head>
+                <title>Chat - DevCord | Chat para Devs</title>
+                <meta property="og:title" content="My page title" key="title" />
+            </Head>
+            <Head>
+                <meta property="og:title" content="My new title" key="title" />
+            </Head>
+
             <Box
                 styleSheet={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    flex: 1,
-                    boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-                    borderRadius: '5px',
-                    backgroundColor: appConfig.theme.colors.neutrals[700],
-                    height: '100%',
-                    maxWidth: '95%',
-                    maxHeight: '95vh',
-                    padding: '32px',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    backgroundColor: appConfig.theme.colors.primary[500],
+                    backgroundImage: `url(https://virtualbackgrounds.site/wp-content/uploads/2020/12/bright-gaming-room-setup-1536x864.jpg)`,
+                    backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
+                    color: appConfig.theme.colors.neutrals['000']
                 }}
             >
-                <Header />
                 <Box
                     styleSheet={{
-                        position: 'relative',
                         display: 'flex',
-                        flex: 1,
-                        height: '80%',
-                        backgroundColor: appConfig.theme.colors.neutrals[600],
                         flexDirection: 'column',
+                        flex: 1,
+                        boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
                         borderRadius: '5px',
-                        padding: '16px',
+                        backgroundColor: appConfig.theme.colors.neutrals[700],
+                        height: '100%',
+                        maxWidth: '95%',
+                        maxHeight: '95vh',
+                        padding: '32px',
                     }}
                 >
-                    <MessageList mensagens={listaDeMensagens} />
+                    <Header />
                     <Box
-                        as="form"
                         styleSheet={{
+                            position: 'relative',
                             display: 'flex',
-                            alignItems: 'center',
+                            flex: 1,
+                            height: '80%',
+                            backgroundColor: appConfig.theme.colors.neutrals[600],
+                            flexDirection: 'column',
+                            borderRadius: '5px',
+                            padding: '16px',
                         }}
                     >
-                        <TextField
-                            value={mensagem}
-                            onChange={(event) => {
-                                const valor = event.target.value;
-                                setMensagem(valor);
-                            }}
-                            onKeyPress={(event) => {
-                                if (event.key === 'Enter') {
-                                    event.preventDefault();
-                                    handleNovaMensagem(mensagem);
-                                }
-                            }}
-                            placeholder="Insira sua mensagem aqui..."
-                            type="textarea"
+                        <MessageList mensagens={listaDeMensagens} />
+                        <Box
+                            as="form"
                             styleSheet={{
-                                width: '100%',
-                                border: '0',
-                                resize: 'none',
-                                borderRadius: '5px',
-                                padding: '6px 8px',
-                                backgroundColor: appConfig.theme.colors.neutrals[800],
-                                marginRight: '12px',
-                                color: appConfig.theme.colors.neutrals[200],
+                                display: 'flex',
+                                alignItems: 'center',
                             }}
-                        />
-                        <ButtonSendSticker 
-                            onStickerClick={(sticker) => {
-                                handleNovaMensagem(':sticker: ' + sticker)
-                            }}
-                        />
+                        >
+                            <TextField
+                                value={mensagem}
+                                onChange={(event) => {
+                                    const valor = event.target.value;
+                                    setMensagem(valor);
+                                }}
+                                onKeyPress={(event) => {
+                                    if (event.key === 'Enter') {
+                                        event.preventDefault();
+                                        handleNovaMensagem(mensagem);
+                                    }
+                                }}
+                                placeholder="Insira sua mensagem aqui..."
+                                type="textarea"
+                                styleSheet={{
+                                    width: '100%',
+                                    border: '0',
+                                    resize: 'none',
+                                    borderRadius: '5px',
+                                    padding: '6px 8px',
+                                    backgroundColor: appConfig.theme.colors.neutrals[800],
+                                    marginRight: '12px',
+                                    color: appConfig.theme.colors.neutrals[200],
+                                }}
+                            />
+                            <ButtonSendSticker
+                                onStickerClick={(sticker) => {
+                                    handleNovaMensagem(':sticker: ' + sticker)
+                                }}
+                            />
+                        </Box>
                     </Box>
                 </Box>
             </Box>
-        </Box>
+        </>
     )
 }
 
@@ -152,7 +163,7 @@ function Header(mensagem) {
                 <Box
                     styleSheet={{
                         marginBottom: '8px',
-                        display: 'flex', 
+                        display: 'flex',
                         alignItems: 'center',
                     }}
                 >
@@ -249,7 +260,7 @@ function MessageList(props) {
                                 {(new Date().toLocaleDateString())}
                             </Text>
                         </Box>
-                        { mensagem.texto.startsWith(':sticker:') ? ( <Image src={mensagem.texto.replace(':sticker:', '')} />) : (mensagem.texto) }
+                        {mensagem.texto.startsWith(':sticker:') ? (<Image src={mensagem.texto.replace(':sticker:', '')} />) : (mensagem.texto)}
                     </Text>
                 );
             })}
