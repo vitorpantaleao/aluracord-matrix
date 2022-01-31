@@ -146,6 +146,37 @@ export default function ChatPage() {
                                     handleNovaMensagem(':sticker: ' + sticker)
                                 }}
                             />
+                            <Button
+                                colorVariant="positive"
+                                iconName="arrowRight"
+                                buttonColors={{
+                                    contrastColor: appConfig.theme.colors.neutrals["000"],
+                                    mainColor: appConfig.theme.colors.primary[500],
+                                    mainColorLight: appConfig.theme.colors.primary[400],
+                                    mainColorStrong: appConfig.theme.colors.primary[600],
+                                }}
+                                onClick={() => {
+                                    handleNovaMensagem(mensagem)
+                                }}
+                                styleSheet={{
+                                    borderRadius: "50%",
+                                    padding: "0 3px 0 0",
+                                    minWidth: "50px",
+                                    minHeight: "50px",
+                                    fontSize: "20px",
+                                    marginBottom: "8px",
+                                    marginLeft: "8px",
+                                    lineHeight: "0",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    backgroundColor: appConfig.theme.colors.neutrals[800],
+                                    filter: React.onMouseOver ? "grayscale(0)" : "grayscale(0)",
+                                    hover: {
+                                        filter: "grayscale(0)",
+                                    },
+                                }}
+                            />
                         </Box>
                     </Box>
                 </Box>
@@ -191,12 +222,12 @@ function Header(mensagem) {
                     </Text>
                 </Box>
                 <Text variant='heading5'>
-                    Chat
+                    DEVCORD - CHAT
                 </Text>
                 <Button
                     variant='tertiary'
                     colorVariant='neutral'
-                    label='Logout'
+                    label='Sair'
                     href="/"
                 />
             </Box>
